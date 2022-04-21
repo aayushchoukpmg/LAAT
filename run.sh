@@ -1,6 +1,6 @@
 #!/bin/sh
 python -m src.run \
-    --problem_name mimic-iii_2_full \
+    --problem_name endoscopy_icd \
     --max_seq_length 4000 \
     --n_epoch 50 \
     --patience 5 \
