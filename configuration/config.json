@@ -13,7 +13,13 @@
     "label_col_names": ["Full_Labels"],
     "text_col_name": "Text"
   },
-
+  "endoscopy_icd": {
+    "cache_dir": "cached_data",
+    "data_dir" : "data/endoscopy/icd",
+    "id_col_name": "SpellLocalID",
+    "label_col_names": ["AllICD_SC"],
+    "text_col_name": "Cat_binary_1&ResultsLetter&Text_with_col_names_Clean_3"
+  },
   "mimic-iii_2_50": {
     "cache_dir": "cached_data",
     "data_dir": "data/mimicdata/mimic3/50",
