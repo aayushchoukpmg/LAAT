@@ -13,11 +13,18 @@
     "label_col_names": ["Full_Labels"],
     "text_col_name": "Text"
   },
-  "endoscopy_icd": {
+  "endoscopy_icd_30": {
     "cache_dir": "cached_data",
-    "data_dir" : "data/endoscopy/icd",
+    "data_dir" : "data/endoscopy/icd/newinfoflex_30codes",
     "id_col_name": "SpellLocalID",
-    "label_col_names": ["AllICD_SC"],
+    "label_col_names": ["AllICD_string"],
+    "text_col_name": "Cat_binary_1&ResultsLetter&Text_with_col_names_Clean_3"
+  },
+  "endoscopy_icd_full_train": {
+    "cache_dir": "cached_data",
+    "data_dir" : "data/endoscopy/icd/newinfoflex_fulltraincodes",
+    "id_col_name": "SpellLocalID",
+    "label_col_names": ["AllICD_string"],
     "text_col_name": "Cat_binary_1&ResultsLetter&Text_with_col_names_Clean_3"
   },
   "mimic-iii_2_50": {

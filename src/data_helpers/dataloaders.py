@@ -12,6 +12,7 @@ from torch.nn.utils.rnn import pad_sequence
 import random
 from tqdm import tqdm
 import numpy as np
+from ast import literal_eval
 
 
 class TextDataset(Dataset):
@@ -36,13 +37,13 @@ class TextDataset(Dataset):
         n_label_level = len(text_data[0][1])
         self.label_count = [dict() for _ in range(n_label_level)]
         self.labels = [set() for _ in range(n_label_level)]
+        
         for text, labels, _id in tqdm(text_data, unit="samples", desc="Processing data"):
             label_list = [[] for _ in range(n_label_level)]
             if type(labels) == list:
                 for label_lvl in range(len(labels)):
                     for label in labels[label_lvl]:
                         if label in self.vocab.label2index[label_lvl]:
-
                             label = self.vocab.index_of_label(label, label_lvl)
                             if label not in self.label_count[label_lvl]:
                                 self.label_count[label_lvl][label] = 1
@@ -106,6 +107,7 @@ class TextDataset(Dataset):
 
         self.labels = sorted(list(self.labels))
         self.size = len(self.indexed_data)
+        
 
     def shuffle_data(self):
         random.shuffle(self.indexed_data)
