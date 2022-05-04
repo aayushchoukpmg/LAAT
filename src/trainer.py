@@ -7,6 +7,7 @@ np.set_printoptions(precision=5)
 from tqdm import tqdm
 from collections import OrderedDict
 import shutil
+import mlflow
 
 
 class Trainer:
@@ -219,6 +220,13 @@ class Trainer:
 
             valid_scores = evaluator.evaluate(self.valid_dataloader)
             test_scores = evaluator.evaluate(self.test_dataloader)
+            train_scores_track = evaluator.evaluate(self.train_dataloader)
+
+            train_scores_track = {f"train_{key}":value for key,value in train_scores_track["average"].items()}
+            valid_scores_track = {f"valid_{key}":value for key,value in valid_scores["average"].items()}
+
+            mlflow.log_metrics(train_scores_track)
+            mlflow.log_metrics(valid_scores_track)
 
             if self.lr_scheduler is not None:
                 self.lr_scheduler.step(valid_scores[self.metric_level][self.main_metric])

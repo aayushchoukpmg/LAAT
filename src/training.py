@@ -10,6 +10,7 @@ from src.evaluator import Evaluator
 from src.args_parser import *
 import pickle
 import pprint
+import mlflow
 
 from transformers import AdamW
 
@@ -198,11 +199,11 @@ def run_with_validation(training_data, valid_data, test_data,
                         vocab, args, logger=None,
                         saved_data_file_path=None,
                         checkpoint_path=None):
+    
     best_model, scores = _train_model(
-        train_data=training_data, valid_data=valid_data, test_data=test_data,
-        vocab=vocab, args=args, logger=logger,
-        saved_data_file_path=saved_data_file_path, checkpoint_path=checkpoint_path)
-
+            train_data=training_data, valid_data=valid_data, test_data=test_data,
+            vocab=vocab, args=args, logger=logger,
+            saved_data_file_path=saved_data_file_path, checkpoint_path=checkpoint_path)
     return best_model, scores
 
 

@@ -2,7 +2,9 @@ from src.training import *
 import os
 from src.util.util import set_random_seed
 import copy
-
+import mlflow
+from azureml.core import Workspace
+import flatdict
 # set the random seed if needed, disable by default
 # set_random_seed(random_seed=42)
 
@@ -30,10 +32,16 @@ def main():
     checkpoint_path = "{}/checkpoint.pkl".format(checkpoint_dir_path)
     args.best_model_path = "{}/best_model.pkl".format(checkpoint_dir_path)
     args.result_path = "{}/result.pkl".format(checkpoint_dir_path)
-    run_with_validation(training_data, valid_data, test_data, vocab, args,
-                        logger=logger, saved_data_file_path=saved_data_file_path,
-                        checkpoint_path=checkpoint_path)
 
+    ws = Workspace.from_config()
+    mlflow.set_tracking_uri(ws.get_mlflow_tracking_uri())
+    mlflow.set_experiment('laat-cnn')
+
+    with mlflow.start_run():
+        mlflow.log_params(vars(args))
+        model, scores = run_with_validation(training_data, valid_data, test_data, vocab, args,
+                            logger=logger, saved_data_file_path=saved_data_file_path,
+                            checkpoint_path=checkpoint_path)        
 
 if __name__ == "__main__":
     main()
